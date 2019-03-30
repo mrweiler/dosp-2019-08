@@ -1,0 +1,100 @@
+---
+title: <small>An introduction to digital open <br>research in clinical psychology</small>
+author: <small>Matthias Weiler</small>
+date: <small>01.04.2019</small>
+output:
+  revealjs::revealjs_presentation:
+    theme: black
+    center: TRUE
+    self_contained: FALSE
+    incremental: TRUE
+    reveal_plugins: ["chalkboard"]
+    reveal_options:
+      chalkboard: 
+      readonly: FALSE
+---
+
+# <small> What did we do last session?</small>
+
+----
+
+We looked at ways to  
+analyze your data
+
+----
+
+... created more R Scripts
+
+----
+
+... and connected them to R Notebooks
+
+----
+
+Any questions or anything to add?
+
+
+
+# <small>Last session's homework</small>
+
+----
+
+Who of you created an R Notebook  
+to document your code?
+
+----
+
+Who of the team captains added  
+their team members as collaborators  
+to their GitHub repository?
+
+----
+
+.. added their team members as  
+contributors to their research  
+projects in OSF?
+
+----
+
+Any questions regarding  
+last session's homework?
+
+
+
+# <small>Today:<br>Data visualization</small>
+
+----
+
+## <small>We will take a look at</small>
+
+```{r cache=FALSE, echo=FALSE}
+knitr::read_chunk('analysis/data_analysis.R')
+```
+
+
+
+# <small>Preview: next session</small>
+
+----
+
+"Putting it all together"
+
+
+
+# <small>Homework</small>
+
+----
+
+Add graphics to your slides
+
+----
+
+Add graphics to your R Notebooks
+
+
+
+# <small>Any questions?</small>
+
+
+
+# <small>Thank you for your attention</small>
