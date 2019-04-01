@@ -9,10 +9,12 @@ output:
     self_contained: FALSE
     incremental: TRUE
     reveal_plugins: ["chalkboard"]
+    css: styles.css
     reveal_options:
       chalkboard: 
       readonly: FALSE
 ---
+
 
 # <small> What did we do last session?</small>
 
@@ -63,13 +65,303 @@ last session's homework?
 
 # <small>Today:<br>Data visualization</small>
 
+
+
+# <small>Graphics with ggplot2</small>
+
+
+
+# <small>Four steps to visualization</small>
+
 ----
 
-## <small>We will take a look at</small>
+## <small>1. Call ggplot()</small>
 
-```{r cache=FALSE, echo=FALSE}
-knitr::read_chunk('analysis/data_analysis.R')
+```{r, echo = FALSE}
+library(ggplot2)
 ```
+
+```{r}
+ggplot()
+```
+
+----
+
+## <small>2. Define data</small>
+
+```{r}
+ggplot(data = mpg)
+```
+
+----
+
+## <small>3. Define aesthetic mappings</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy))
+```
+
+----
+
+## <small>4. Add geometric object(s)</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+
+# <small>Some examples</small>
+
+----
+
+## <small>Histograms</small>
+
+```{r message=FALSE}
+ggplot(data = mpg, aes(x = hwy)) + 
+  geom_histogram()
+```
+
+----
+
+## <small>Frequency polygons</small>
+
+```{r message=FALSE}
+ggplot(data = mpg, aes(x = hwy)) + 
+  geom_freqpoly()
+```
+
+----
+
+## <small>Densityplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = hwy)) + 
+  geom_density()
+```
+
+----
+
+## <small>Scatterplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+----
+
+## <small>Lineplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_line()
+```
+
+----
+
+## <small>Maps</small>
+
+```{r}
+ggplot(map_data("world"), aes(long, lat, group = group)) +
+  geom_polygon() 
+```
+
+----
+
+## <small>Dinosaurs</small>
+
+```{r, echo=FALSE, message=FALSE}
+library(datasauRus)
+library(dplyr)
+```
+
+```{r, message=FALSE}
+dino <- datasaurus_dozen %>% filter(dataset == "dino")
+ggplot(dino, aes(x = x, y = y)) +
+  geom_point(color = "red") +
+  theme_void()
+```
+
+
+# <small>More examples</small>
+
+----
+
+## <small>Scatterplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_point()
+```
+
+----
+
+## <small>Jitterplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_jitter()
+```
+
+----
+
+## <small>Boxplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_boxplot()
+```
+
+----
+
+## <small>Violinplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_violin()
+```
+
+----
+
+## <small>Beeswarmplots</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  ggbeeswarm::geom_beeswarm()
+```
+
+
+
+# <small>Combining plots</small>
+
+----
+
+## <small>Histogramm</small>
+
+```{r, message=FALSE}
+ggplot(data = mpg, aes(x = hwy)) + 
+  geom_histogram()
+```
+
+----
+
+## <small>Add a frequency polygon</small>
+
+```{r, message=FALSE}
+ggplot(data = mpg, aes(x = hwy)) + 
+  geom_histogram() +
+  geom_freqpoly()
+```
+
+----
+
+## <small>Scatterplot</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point()
+```
+
+----
+
+## <small>Add a regression line</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+----
+
+## <small>Add a second regression line and conficence interval</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  geom_smooth(method = "loess", se = TRUE)
+```
+
+## <small>Violin plot</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_violin()
+```
+
+----
+
+## <small>Add a box plot</small>
+
+```{r}
+ggplot(data = mpg, aes(x = drv, y = hwy)) + 
+  geom_violin() +
+  geom_boxplot(width = 0.1)
+```
+
+
+
+# <small>Edit your axis</small>
+
+----
+
+## <small>Axis limits</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  scale_x_continuous(limits = c(0, 10))
+```
+
+----
+
+## <small>Axis labels</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  labs(x = "Engine displacement", y = "Highway miles per gallon")
+```
+
+----
+
+## <small>Axis scales</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  scale_x_continuous(limits = c(0, 10), breaks = c(0:10))
+```
+
+
+
+# <small>Other labels</small>
+
+----
+
+## <small>Title</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy)) + 
+  geom_point() +
+  labs(title = "My Title")
+```
+
+----
+
+## <small>Legend</small>
+
+```{r}
+ggplot(data = mpg, aes(x = displ, y = hwy, color = class)) + 
+  geom_point() +
+  labs(color = "My Legend")
+```
+
+
+
+# <small>Any questions?</small>
 
 
 
